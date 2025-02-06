@@ -38,12 +38,12 @@ namespace sgl
         : m_Id(glCreateShader(type))
         , m_Type(type)
     {
-        ASSERT(m_Type == GL_VERTEX_SHADER
-            || m_Type == GL_TESS_CONTROL_SHADER
-            || m_Type == GL_TESS_EVALUATION_SHADER
-            || m_Type == GL_GEOMETRY_SHADER
-            || m_Type == GL_FRAGMENT_SHADER
-            || m_Type == GL_COMPUTE_SHADER);
+        SGL_ASSERT(m_Type == GL_VERTEX_SHADER
+                || m_Type == GL_TESS_CONTROL_SHADER
+                || m_Type == GL_TESS_EVALUATION_SHADER
+                || m_Type == GL_GEOMETRY_SHADER
+                || m_Type == GL_FRAGMENT_SHADER
+                || m_Type == GL_COMPUTE_SHADER);
     }
 
     Shader::Shader(const GLenum type, const std::string& source)
@@ -102,9 +102,9 @@ namespace sgl
             GLchar* const infoLog = static_cast<GLchar*>(alloca(infoLogLength * sizeof(GLchar)));
             GLCall(glGetShaderInfoLog(m_Id, infoLogLength, &infoLogLength, infoLog));
 
-            std::cerr << "Failed to compile " << (m_Type == GL_VERTEX_SHADER ? "vertex" : "fragment") << " shader!\n" << infoLog << std::endl;
+            SGL_LOG_ERROR("Failed to compile %s shader!\n%s", m_Type == GL_VERTEX_SHADER ? "vertex" : "fragment", infoLog);
 
-            ASSERT(false);
+            SGL_ASSERT(false);
         }
     }
 

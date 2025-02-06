@@ -44,18 +44,18 @@ int main()
     if (!window)
     {
         glfwTerminate();
-        ASSERT(false);
+        SGL_ASSERT(false);
         return EXIT_FAILURE;
     }
 
     glfwMakeContextCurrent(window);
-    glfwSwapInterval(1);
+    glfwSwapInterval(1); // Enable V-Sync
 
     if (glewInit() != GLEW_OK)
     {
         glfwDestroyWindow(window);
         glfwTerminate();
-        ASSERT(false);
+        SGL_ASSERT(false);
         return EXIT_FAILURE;
     }
 
@@ -68,10 +68,10 @@ int main()
     auto& io = ImGui::GetIO();
     io.IniFilename = nullptr;
 
-    LOG(glGetString(GL_VERSION));
+    SGL_LOG_INFO("OpenGL Version: %s", glGetString(GL_VERSION));
 
     {
-        const sgl::Renderer renderer;
+        const sgl::Renderer renderer{};
         renderer.EnableBlending();
 
         test::TestMenu testMenu(TEST_MENU_NAME);

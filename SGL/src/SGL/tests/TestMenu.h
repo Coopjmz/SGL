@@ -28,7 +28,7 @@ namespace test
 	template <typename T, typename... Args>
 	inline void TestMenu::RegisterTest(const char* const name, Args&&... args)
 	{
-		std::cout << "Registering test: " << name << std::endl;
+		SGL_LOG_INFO("Registering test: %s", name);
 		m_Tests.push_back({ name, [name, &args...]() { return new T(name, std::forward<Args>(args)...); } });
 	}
 } // namespace test

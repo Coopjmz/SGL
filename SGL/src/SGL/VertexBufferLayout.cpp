@@ -31,7 +31,7 @@ namespace sgl
 			return Count * sizeof(GLfloat);
 		}
 
-		ASSERT(false);
+		SGL_ASSERT(false);
 		return 0;
 	}
 

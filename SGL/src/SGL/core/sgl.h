@@ -1,6 +1,6 @@
 #pragma once
 
-#define GLCall(function) do { sgl::ClearError(); function; ASSERT(sgl::LogCall(#function, __FILE__, __LINE__)); } while(false)
+#define GLCall(function) do { sgl::ClearError(); function; SGL_ASSERT(sgl::LogCall(#function, __FILE__, __LINE__)); } while(false)
 
 namespace sgl
 {
