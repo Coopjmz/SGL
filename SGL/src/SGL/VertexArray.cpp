@@ -9,13 +9,13 @@ namespace sgl
 {
 	/*static*/ void VertexArray::Unbind()
 	{
-		GLCall(glBindVertexArray(0));
+		glBindVertexArray(0);
 	}
 
 	VertexArray::VertexArray()
 		: m_IndexBuffer(nullptr)
 	{
-		GLCall(glGenVertexArrays(1, &m_Id));
+		glGenVertexArrays(1, &m_Id);
 	}
 
 	VertexArray::~VertexArray()
@@ -48,7 +48,7 @@ namespace sgl
 
 	void VertexArray::Bind() const
 	{
-		GLCall(glBindVertexArray(m_Id));
+		glBindVertexArray(m_Id);
 	}
 
 	void VertexArray::AddVertexBuffer(const VertexBuffer& vertexBuffer, const VertexBufferLayout& vertexBufferLayout) const
@@ -62,9 +62,9 @@ namespace sgl
 		{
 			const auto& element = elements[i];
 
-			GLCall(glEnableVertexAttribArray(i));
-			GLCall(glVertexAttribPointer(i, element.Count, element.Type, element.Normalized,
-				vertexBufferLayout.GetStride(), reinterpret_cast<const void*>(offset)));
+			glEnableVertexAttribArray(i);
+			glVertexAttribPointer(i, element.Count, element.Type, element.Normalized,
+				vertexBufferLayout.GetStride(), reinterpret_cast<const void*>(offset));
 
 			offset += element.GetSize();
 		}
@@ -80,6 +80,6 @@ namespace sgl
 
 	void VertexArray::Delete() const
 	{
-		GLCall(glDeleteVertexArrays(1, &m_Id));
+		glDeleteVertexArrays(1, &m_Id);
 	}
 } // namespace sgl

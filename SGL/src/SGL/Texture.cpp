@@ -8,7 +8,7 @@ namespace sgl
 		, m_Width(0)
 		, m_Height(0)
 	{
-		GLCall(glGenTextures(1, &m_Id));
+		glGenTextures(1, &m_Id);
 	}
 
 	Texture::Texture(const uint32_t color)
@@ -81,7 +81,7 @@ namespace sgl
 		m_Slot = slot;
 
 		MakeActive();
-		GLCall(glBindTexture(GL_TEXTURE_2D, m_Id));
+		glBindTexture(GL_TEXTURE_2D, m_Id);
 	}
 
 	void Texture::Unbind()
@@ -89,7 +89,7 @@ namespace sgl
 		ReturnUnless(IsBound());
 
 		MakeActive();
-		GLCall(glBindTexture(GL_TEXTURE_2D, 0));
+		glBindTexture(GL_TEXTURE_2D, 0);
 
 		m_Slot = -1;
 	}
@@ -97,11 +97,11 @@ namespace sgl
 	void Texture::SetColor(const uint32_t color)
 	{
 		Bind(sgl::GetTextureSlotCount() - 1);
-		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
-		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
-		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
-		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
-		GLCall(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, 1, 1, 0, GL_RGBA, GL_UNSIGNED_BYTE, &color));
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, 1, 1, 0, GL_RGBA, GL_UNSIGNED_BYTE, &color);
 		Unbind();
 	}
 
@@ -120,11 +120,11 @@ namespace sgl
 		else
 			MakeActive();
 
-		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
-		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
-		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
-		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
-		GLCall(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, m_Width, m_Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data));
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, m_Width, m_Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
 
 		if (!isBound)
 			Unbind();
@@ -135,11 +135,11 @@ namespace sgl
 
 	void Texture::MakeActive() const
 	{
-		GLCall(glActiveTexture(GL_TEXTURE0 + m_Slot));
+		glActiveTexture(GL_TEXTURE0 + m_Slot);
 	}
 
 	void Texture::Delete() const
 	{
-		GLCall(glDeleteTextures(1, &m_Id));
+		glDeleteTextures(1, &m_Id);
 	}
 } // namespace sgl

@@ -35,10 +35,13 @@ int main()
 
     AssertReturnIf(glfwInit() != GLFW_TRUE, EXIT_FAILURE);
 
-    static constexpr const char* GLSL_VERSON = "#version 330";
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    static constexpr const char* GLSL_VERSON = "#version 460";
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+#ifdef SGL_DEBUG
+    glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
+#endif
 
     auto* const window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Window", nullptr, nullptr);
     if (!window)
@@ -58,6 +61,10 @@ int main()
         SGL_ASSERT(false);
         return EXIT_FAILURE;
     }
+
+#ifdef SGL_DEBUG
+    sgl::EnableGlDebugOutput();
+#endif
 
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();

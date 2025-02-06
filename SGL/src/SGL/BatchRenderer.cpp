@@ -123,7 +123,7 @@ namespace sgl
 			s_Data.TextureSlots[i]->Bind(static_cast<GLuint>(i));
 
 		s_Data.VertexArray->Bind();
-		GLCall(glDrawElements(GL_TRIANGLES, s_Data.IndexCount, GL_UNSIGNED_INT, nullptr));
+		glDrawElements(GL_TRIANGLES, s_Data.IndexCount, GL_UNSIGNED_INT, nullptr);
 		++s_Data.Stats.DrawCount;
 
 		s_Data.IndexCount = 0;

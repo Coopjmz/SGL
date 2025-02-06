@@ -5,12 +5,12 @@ namespace sgl
 {
 	/*static*/ void VertexBuffer::Unbind()
 	{
-		GLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
 	VertexBuffer::VertexBuffer()
 	{
-		GLCall(glGenBuffers(1, &m_Id));
+		glGenBuffers(1, &m_Id);
 	}
 
 	VertexBuffer::VertexBuffer(const GLsizeiptr size)
@@ -48,29 +48,29 @@ namespace sgl
 
 	void VertexBuffer::Bind() const
 	{
-		GLCall(glBindBuffer(GL_ARRAY_BUFFER, m_Id));
+		glBindBuffer(GL_ARRAY_BUFFER, m_Id);
 	}
 
 	void VertexBuffer::SetSize(const GLsizeiptr size) const
 	{
 		Bind();
-		GLCall(glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_DYNAMIC_DRAW));
+		glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_DYNAMIC_DRAW);
 	}
 
 	void VertexBuffer::SetData(const void* const data, const GLsizeiptr size) const
 	{
 		Bind();
-		GLCall(glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW));
+		glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
 	}
 
 	void VertexBuffer::SetSubData(const void* const data, const GLsizeiptr size, const GLintptr offset /*= 0LL*/) const
 	{
 		Bind();
-		GLCall(glBufferSubData(GL_ARRAY_BUFFER, offset, size, data));
+		glBufferSubData(GL_ARRAY_BUFFER, offset, size, data);
 	}
 
 	void VertexBuffer::Delete() const
 	{
-		GLCall(glDeleteBuffers(1, &m_Id));
+		glDeleteBuffers(1, &m_Id);
 	}
 } // namespace sgl

@@ -5,13 +5,13 @@ namespace sgl
 {
 	/*static*/ void IndexBuffer::Unbind()
 	{
-		GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
 
 	IndexBuffer::IndexBuffer()
 		: m_IndexCount(0)
 	{
-		GLCall(glGenBuffers(1, &m_Id));
+		glGenBuffers(1, &m_Id);
 	}
 
 	IndexBuffer::IndexBuffer(const GLuint* const data, const GLsizeiptr size)
@@ -50,7 +50,7 @@ namespace sgl
 
 	void IndexBuffer::Bind() const
 	{
-		GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_Id));
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_Id);
 	}
 
 	void IndexBuffer::SetData(const GLuint* const data, const GLsizeiptr size)
@@ -58,11 +58,11 @@ namespace sgl
 		m_IndexCount = static_cast<GLsizei>(size / sizeof(GLuint));
 
 		Bind();
-		GLCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, data, GL_STATIC_DRAW));
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
 	}
 
 	void IndexBuffer::Delete() const
 	{
-		GLCall(glDeleteBuffers(1, &m_Id));
+		glDeleteBuffers(1, &m_Id);
 	}
 } // namespace sgl

@@ -89,18 +89,18 @@ namespace sgl
         AssertReturnIf(source.empty());
 
         const char* const src = source.c_str();
-        GLCall(glShaderSource(m_Id, 1, &src, nullptr));
-        GLCall(glCompileShader(m_Id));
+        glShaderSource(m_Id, 1, &src, nullptr);
+        glCompileShader(m_Id);
 
         GLint compileStatus;
-        GLCall(glGetShaderiv(m_Id, GL_COMPILE_STATUS, &compileStatus));
+        glGetShaderiv(m_Id, GL_COMPILE_STATUS, &compileStatus);
         if (compileStatus == GL_FALSE)
         {
             GLint infoLogLength;
-            GLCall(glGetShaderiv(m_Id, GL_INFO_LOG_LENGTH, &infoLogLength));
+            glGetShaderiv(m_Id, GL_INFO_LOG_LENGTH, &infoLogLength);
 
             GLchar* const infoLog = static_cast<GLchar*>(alloca(infoLogLength * sizeof(GLchar)));
-            GLCall(glGetShaderInfoLog(m_Id, infoLogLength, &infoLogLength, infoLog));
+            glGetShaderInfoLog(m_Id, infoLogLength, &infoLogLength, infoLog);
 
             SGL_LOG_ERROR("Failed to compile %s shader!\n%s", m_Type == GL_VERTEX_SHADER ? "vertex" : "fragment", infoLog);
 
@@ -110,6 +110,6 @@ namespace sgl
 
     void Shader::Delete() const
     {
-        GLCall(glDeleteShader(m_Id));
+        glDeleteShader(m_Id);
     }
 } // namespace sgl
