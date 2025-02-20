@@ -75,7 +75,7 @@ int main()
     auto& io = ImGui::GetIO();
     io.IniFilename = nullptr;
 
-    SGL_LOG_INFO("OpenGL Version: %s", glGetString(GL_VERSION));
+    SGL_LOG_INFO("OpenGL Version: {}", reinterpret_cast<const char*>(glGetString(GL_VERSION)));
 
     {
         const sgl::Renderer renderer{};

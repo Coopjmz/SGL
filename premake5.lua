@@ -1,5 +1,5 @@
 workspace "SGL"
-    architecture "x64"
+    architecture "x86_64"
     startproject "SGL"
 
     configurations
@@ -12,6 +12,9 @@ workspace "SGL"
     {
         "MultiProcessorCompile"
     }
+
+    filter "system:windows"
+        buildoptions { "/EHsc", "/Zc:preprocessor", "/Zc:__cplusplus" }
 
 BuildDir = "%{wks.location}/build"
 OutDir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}/%{prj.name}"

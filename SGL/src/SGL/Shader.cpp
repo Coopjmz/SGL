@@ -102,7 +102,7 @@ namespace sgl
             GLchar* const infoLog = static_cast<GLchar*>(alloca(infoLogLength * sizeof(GLchar)));
             glGetShaderInfoLog(m_Id, infoLogLength, &infoLogLength, infoLog);
 
-            SGL_LOG_ERROR("Failed to compile %s shader!\n%s", m_Type == GL_VERTEX_SHADER ? "vertex" : "fragment", infoLog);
+            SGL_LOG_ERROR("Failed to compile {} shader!\n{}", m_Type == GL_VERTEX_SHADER ? "vertex" : "fragment", infoLog);
 
             SGL_ASSERT(false);
         }

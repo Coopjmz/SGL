@@ -1,7 +1,8 @@
 #pragma once
 
 // STL
-#include <stdio.h>
+#include <iostream>
+#include <format>
 #include <string>
 #include <array>
 #include <vector>

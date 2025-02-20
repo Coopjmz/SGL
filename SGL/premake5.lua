@@ -43,23 +43,26 @@ project "SGL"
         "opengl32"
     }
 
-    linkoptions "/NODEFAULTLIB:LIBCMT"
-
-    defines "GLEW_STATIC"
+    defines
+    {
+        "GLEW_STATIC"
+    }
 
     filter "files:vendor/**.cpp"
         flags "NoPCH"
 
     filter "system:windows"
         systemversion "latest"
-        defines "SGL_PLATFORM_WINDOWS"
 
     filter "configurations:Debug"
         runtime "Debug"
         defines "SGL_DEBUG"
-        symbols "on"
+        optimize "Off"
+        symbols "On"
+        linkoptions "/NODEFAULTLIB:LIBCMT"
 
     filter "configurations:Release"
         runtime "Release"
         defines "SGL_RELEASE"
-        optimize "on"
+        optimize "On"
+        symbols "Off"

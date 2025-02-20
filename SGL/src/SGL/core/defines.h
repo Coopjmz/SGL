@@ -1,13 +1,28 @@
 #pragma once
 
-#define SGL_LOG_INFO(info, ...) fprintf(stdout, "[SGL Info] "##info##"\n", __VA_ARGS__)
-#define SGL_LOG_ERROR(error, ...) fprintf(stderr, "[SGL Error] "##error##"\n", __VA_ARGS__)
-#define SGL_LOG_WARNING(warning, ...) fprintf(stderr, "[SGL Warning] "##warning##"\n", __VA_ARGS__)
+#ifdef SGL_DEBUG
+#	define SGL_LOG_INFO(fmt, ...) do { std::cout << "[SGL Info] " << std::format(fmt, __VA_ARGS__) << std::endl; } while(false)
+#	define SGL_LOG_WARNING(fmt, ...) do { std::cout << "[SGL Warning] " << std::format(fmt, __VA_ARGS__) << std::endl; } while(false)
+#	define SGL_LOG_ERROR(fmt, ...) do { std::cerr << "[SGL Error] " << std::format(fmt, __VA_ARGS__) << std::endl; } while(false)
+#else
+#	define SGL_LOG_INFO(fmt, ...)
+#	define SGL_LOG_WARNING(fmt, ...)
+#	define SGL_LOG_ERROR(fmt, ...)
+#endif
+
+#if defined(_MSC_VER)
+#	define DEBUG_BREAK() __debugbreak()
+#elif defined(__GNUC__) || defined(__clang__)
+#	define DEBUG_BREAK() __builtin_trap()
+#else
+#	include <csignal>
+#	define DEBUG_BREAK() raise(SIGTRAP)
+#endif
 
 #ifdef SGL_DEBUG
-	#define SGL_ASSERT(condition) do { if (!(condition)) { SGL_LOG_ERROR("Assert failed: "#condition); __debugbreak(); } } while(false)
+	#define SGL_ASSERT(condition) do { if (!(condition)) { SGL_LOG_ERROR("Assertion failed: \"{}\", File: {}, Line: {}", #condition, __FILE__, __LINE__); DEBUG_BREAK(); } } while(false)
 #else
-	#define SGL_ASSERT(condition)
+	#define SGL_ASSERT(condition) do { if (!(condition)) abort(); } while(false)
 #endif
 
 #define ReturnIf(condition, ...) do { if (condition) return __VA_ARGS__; } while(false)

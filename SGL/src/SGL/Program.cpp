@@ -71,7 +71,7 @@ namespace sgl
             GLchar* const infoLog = static_cast<GLchar*>(alloca(infoLogLength * sizeof(GLchar)));
             glGetProgramInfoLog(m_Id, infoLogLength, &infoLogLength, infoLog);
 
-            SGL_LOG_ERROR("Failed to link program!\n%s", infoLog);
+            SGL_LOG_ERROR("Failed to link program!\n{}", infoLog);
             SGL_ASSERT(false);
             return;
         }
@@ -88,7 +88,7 @@ namespace sgl
             GLchar* const infoLog = static_cast<GLchar*>(alloca(infoLogLength * sizeof(GLchar)));
             glGetProgramInfoLog(m_Id, infoLogLength, &infoLogLength, infoLog);
 
-            SGL_LOG_ERROR("Failed to validate program!\n%s", infoLog);
+            SGL_LOG_ERROR("Failed to validate program!\n{}", infoLog);
             SGL_ASSERT(false);
             return;
         }
@@ -295,7 +295,9 @@ namespace sgl
 
         const GLint uniformLocation = glGetUniformLocation(m_Id, name.c_str());
         if (uniformLocation == -1)
-            SGL_LOG_WARNING("[OpenGL Warning] Uniform '%s' does not exist!", name.c_str());
+        {
+            SGL_LOG_WARNING("[OpenGL Warning] Uniform '{}' does not exist!", name.c_str());
+        }
 
         m_UniformLocationCache[name] = uniformLocation;
         return uniformLocation;

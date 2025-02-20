@@ -1,7 +1,11 @@
 #include "sglpch.h"
 #include "sgl.h"
 
-#define GL_LOG_ERROR(error, ...) fprintf(stderr, "[OpenGL Error]\n"##error##"\n", __VA_ARGS__)
+#ifdef SGL_DEBUG
+#	define GL_LOG_ERROR(fmt, ...) do { std::cerr << "[OpenGL Error] " << std::format(fmt, __VA_ARGS__) << std::endl; } while(false)
+#else
+#	define GL_LOG_ERROR(fmt, ...)
+#endif
 
 namespace
 {
@@ -52,7 +56,7 @@ namespace
         case GL_DEBUG_SEVERITY_NOTIFICATION: severityText = "Notification"; break;
         }
 
-        GL_LOG_ERROR("Id: %u\nMessage: %s\nSource: %s\nType: %s\nSeverity: %s",
+        GL_LOG_ERROR("Id: {}\nMessage: {}\nSource: {}\nType: {}\nSeverity: {}",
             id, message, sourceText, typeText, severityText);
     }
 } // namespace
